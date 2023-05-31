@@ -33,7 +33,7 @@ class ScreenHome extends StatelessWidget {
             children: [
               ListView(
                 children: [
-                  BackgroundCard(),
+                  const BackgroundCard(),
                   const MainTitleCard(
                     title: "Released in the past year",
                   ),
@@ -56,10 +56,10 @@ class ScreenHome extends StatelessWidget {
               ),
               scrollNotifier.value == true
                   ? AnimatedContainer(
-                    duration: Duration(seconds: 3),
+                    duration: const Duration(seconds: 3),
                       width: double.infinity,
                       height: 90,
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withOpacity(0.1),
                       child: Column(
                         children: [
                           Row(
@@ -69,8 +69,8 @@ class ScreenHome extends StatelessWidget {
                                 width: 60,
                                 height: 60,
                               ),
-                              Spacer(),
-                              Icon(
+                              const Spacer(),
+                              const Icon(
                                 Icons.cast,
                                 color: Colors.white,
                                 size: 30,

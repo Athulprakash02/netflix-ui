@@ -8,7 +8,9 @@ const kHeight = SizedBox(
 );
 
 //Borderradius
-BorderRadius KRadius10 = BorderRadius.circular(10);
+BorderRadius kRadius10 = BorderRadius.circular(10);
+BorderRadius kRadius30 = BorderRadius.circular(30);
+
 
 //image
 const String mainImage =

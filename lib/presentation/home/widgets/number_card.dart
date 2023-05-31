@@ -18,7 +18,7 @@ class NumberCard extends StatelessWidget {
               width: 130,
               height: 180,
               decoration: BoxDecoration(
-                  borderRadius: KRadius10,
+                  borderRadius: kRadius10,
                   image: const DecorationImage(
                       image: NetworkImage(
                           'https://www.themoviedb.org/t/p/w220_and_h330_face/7MUQMSncjUSYeNx0ZAgFCxhlPhv.jpg'),
