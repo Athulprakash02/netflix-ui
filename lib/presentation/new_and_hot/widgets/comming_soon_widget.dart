@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/home/widgets/custom_button.dart';
+import 'package:netflix/presentation/new_and_hot/screen_new_and_hot.dart';
+import 'package:netflix/presentation/widgets/video_widget.dart';
 
 class CommingSoonWidget extends StatelessWidget {
   const CommingSoonWidget({
@@ -38,40 +40,14 @@ class CommingSoonWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: Image.network(
-                      "https://www.themoviedb.org/t/p/w355_and_h200_multi_faces/r7zUXadc1saFFSWz8lbUx7q9bkG.jpg",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Positioned(
-                    right: 5,
-                    bottom: 5,
-                    child: CircleAvatar(
-                      radius: 23,
-                      backgroundColor: Colors.black.withOpacity(0.5),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.volume_off_outlined,
-                          color: KWhiteColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              const VideoWidget(),
               kHeight,
               Row(
                 children: [
                   SizedBox(
                     height: 50,
                     child: Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv_04UVGA5GxM88FkFV8uN_jl_KoWACKtXR8ZmvoW-hME-uQc0zB-_doLrNlWqx-nuuA&usqp=CAU"),
+                       movieTitleImage),
                   ),
                   const Spacer(),
                   const Row(
@@ -96,14 +72,14 @@ class CommingSoonWidget extends StatelessWidget {
                 ],
               ),
               kHeight,
-              Text(
+              const Text(
                 "Comming on Friday",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               kHeight,
-              Text(
+              const Text(
                 "The Walking Dead",
                 style: TextStyle(
                   fontSize: 20,
@@ -113,7 +89,7 @@ class CommingSoonWidget extends StatelessWidget {
               kHeight,
               SizedBox(
                 width: size.width - 50,
-                child: Text(
+                child: const Text(
                   "Sheriff's deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. He sets out to find his family and encounters many other survivors along the way.",
                   style: TextStyle(
                     color: KGreyColor,
@@ -128,3 +104,4 @@ class CommingSoonWidget extends StatelessWidget {
     );
   }
 }
+

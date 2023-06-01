@@ -4,7 +4,15 @@ import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/home/widgets/custom_button.dart';
 import 'package:netflix/presentation/new_and_hot/widgets/comming_soon_widget.dart';
+import 'package:netflix/presentation/new_and_hot/widgets/everynes_watching_widget.dart';
 import 'package:netflix/presentation/widgets/app_bar_widget.dart';
+import 'package:netflix/presentation/widgets/sized_box_widget.dart';
+import 'package:netflix/presentation/widgets/video_widget.dart';
+
+const newAndHotTemplateImage =
+    "https://www.themoviedb.org/t/p/w355_and_h200_multi_faces/r7zUXadc1saFFSWz8lbUx7q9bkG.jpg";
+const movieTitleImage =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv_04UVGA5GxM88FkFV8uN_jl_KoWACKtXR8ZmvoW-hME-uQc0zB-_doLrNlWqx-nuuA&usqp=CAU";
 
 class ScreenNewAndHot extends StatelessWidget {
   const ScreenNewAndHot({super.key});
@@ -70,14 +78,17 @@ class ScreenNewAndHot extends StatelessWidget {
   }
 
   Widget _buildEveryonesWatching(String s) {
-    return const SizedBox();
+    return ListView.builder(
+      itemBuilder: (context, index) => const EveryonesWatchingWidget(),
+      itemCount: 10,
+    );
   }
 
   Widget _buildCommingSoon(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: ListView.builder(
-        itemBuilder: (context, index) => CommingSoonWidget(),
+        itemBuilder: (context, index) => const CommingSoonWidget(),
         itemCount: 10,
       ),
     );
