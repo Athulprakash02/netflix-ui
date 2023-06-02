@@ -3,16 +3,24 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/domain/downloads/models/downloads.dart';
 import 'package:netflix/presentation/widgets/app_bar_widget.dart';
 import 'package:netflix/presentation/widgets/sized_box_widget.dart';
 
-class ScreenDownloads extends StatelessWidget {
+class ScreenDownloads extends StatefulWidget {
   ScreenDownloads({super.key});
+
+  @override
+  State<ScreenDownloads> createState() => _ScreenDownloadsState();
+}
+
+class _ScreenDownloadsState extends State<ScreenDownloads> {
   final _widgetsList = [
     const _smartDownloads(),
     Section2(),
     const Section3(),
   ];
+
   @override
   Widget build(BuildContext context) {
     // final Size size = MediaQuery.of(context).size;
@@ -21,20 +29,52 @@ class ScreenDownloads extends StatelessWidget {
             child: AppBarWidget(title: 'Downloads'),
             preferredSize: Size.fromHeight(50)),
         body: ListView.separated(
-          padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(15),
             itemBuilder: (context, index) => _widgetsList[index],
-            separatorBuilder: (context, index) => SizedBox(height: 25,),
+            separatorBuilder: (context, index) => SizedBox(
+                  height: 25,
+                ),
             itemCount: _widgetsList.length));
   }
 }
 
-class Section2 extends StatelessWidget {
+class Section2 extends StatefulWidget {
   Section2({super.key});
-  final List imageList = [
-    'https://www.themoviedb.org/t/p/w220_and_h330_face/dP5Fb6YRfzmCQtRbHOr2kO7tJW9.jpg',
-    'https://www.themoviedb.org/t/p/w220_and_h330_face/m2lMUxyFDi1RXogMffLfQW3CjTE.jpg',
-    'https://www.themoviedb.org/t/p/w220_and_h330_face/vrQHDXjVmbYzadOXQ0UaObunoy2.jpg',
-  ];
+
+  @override
+  State<Section2> createState() => _Section2State();
+}
+
+class _Section2State extends State<Section2> {
+  TMDBService _tmdbService = TMDBService();
+   List<dynamic> imageList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _fetchPopularMovies();
+    
+  }
+  Future<void> _fetchPopularMovies() async{
+    try {
+      final jsonData = await _tmdbService.getPopularMovies();
+      final List<dynamic> movies = jsonData['results'];
+      List<String> imagePathList = movies.map<String>((movie) {
+        final String posterPath = movie['poster_path'];
+        return "https://image.tmdb.org/t/p/w500$posterPath";
+
+      }).toList();
+      print('object');
+      print(imagePathList);
+      setState(() {
+        imageList = imagePathList;
+      });
+    } catch (e) {
+      print('Error: $e');
+      
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,12 +140,12 @@ class Section3 extends StatelessWidget {
         SizedBox(
           width: double.maxFinite,
           child: Padding(
-            padding: const EdgeInsets.only(left: 20,right: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: MaterialButton(
               color: KButtonColorBlue,
               onPressed: () {},
-              shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(

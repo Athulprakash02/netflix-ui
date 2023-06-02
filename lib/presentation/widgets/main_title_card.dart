@@ -5,8 +5,9 @@ import 'package:netflix/presentation/widgets/main_title.dart';
 
 class MainTitleCard extends StatelessWidget {
   final String title;
+  final List trending;
   const MainTitleCard({
-    super.key, required this.title,
+    super.key, required this.title, required this.trending,
   });
 
   @override
@@ -22,7 +23,7 @@ class MainTitleCard extends StatelessWidget {
           maxHeight: 180,
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => const MainCardWidget(),
+              itemBuilder: (context, index) =>  MainCardWidget(posterPath: trending[index]['poster_path']),
               separatorBuilder: (context, index) => kWidth,
               itemCount: 10),
         ),

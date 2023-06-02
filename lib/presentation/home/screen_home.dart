@@ -2,15 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/infrastructure/api_key.dart';
 import 'package:netflix/presentation/home/widgets/background_card_widget.dart';
 import 'package:netflix/presentation/home/widgets/custom_button.dart';
 import 'package:netflix/presentation/home/widgets/number_title_card.dart';
 import 'package:netflix/presentation/widgets/main_title_card.dart';
+import 'package:tmdb_api/tmdb_api.dart';
 
 ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
 
-class ScreenHome extends StatelessWidget {
+class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
+
+  @override
+  State<ScreenHome> createState() => _ScreenHomeState();
+}
+
+class _ScreenHomeState extends State<ScreenHome> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    loadMovies();
+    super.initState();
+  }
+  List trendingMovies = [];
+  List topRatedMovies = [];
+  List tvShows = [];
+
+  
+
+  loadMovies() async{
+    TMDB tmdbWithCustomLogs = TMDB(ApiKeys(apiKey, readAccessToken),logConfig: ConfigLogger(
+      showLogs: true,
+      showErrorLogs: true
+    ));
+    Map trendingResult = await tmdbWithCustomLogs.v3.trending.getTrending();
+    Map topRatedResult= await tmdbWithCustomLogs.v3.movies.getTopRated();
+    Map tvShowsResults = await tmdbWithCustomLogs.v3.tv.getPopular();
+    
+    setState(() {
+      
+      trendingMovies = trendingResult['results'];
+      topRatedMovies = topRatedResult['results'];
+      tvShows = tvShowsResults['results'];
+    });
+    print(trendingMovies);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,24 +71,23 @@ class ScreenHome extends StatelessWidget {
             children: [
               ListView(
                 children: [
+                  
                   const BackgroundCard(),
-                  const MainTitleCard(
-                    title: "Released in the past year",
-                  ),
+                   MainTitleCard(title:  "Trending Movies", trending: trendingMovies),
                   kHeight,
-                  const MainTitleCard(
-                    title: "Trending Now",
-                  ),
-                  kHeight,
-                  const NumberTitleCard(),
-                  kHeight,
-                  const MainTitleCard(
-                    title: "Tense Dramas",
-                  ),
-                  kHeight,
-                  const MainTitleCard(
-                    title: "South Indian Cinema",
-                  ),
+                  // const MainTitleCard(
+                  //   title: "Trending Now",
+                  // ),
+                  // kHeight,
+                  // const NumberTitleCard(),
+                  // kHeight,
+                  // const MainTitleCard(
+                  //   title: "Tense Dramas",
+                  // ),
+                  // kHeight,
+                  // const MainTitleCard(
+                  //   title: "South Indian Cinema",
+                  // ),
                   kHeight,
                 ],
               ),
