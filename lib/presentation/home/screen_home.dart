@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
-import 'package:netflix/infrastructure/api_key.dart';
+import 'package:netflix/domain/model/home/popular_movies/api_call_popular.dart';
+import 'package:netflix/domain/model/home/popular_movies/popular_list.dart';
+import 'package:netflix/domain/model/home/trending_movies/api_call_trending.dart';
+import 'package:netflix/domain/model/home/trending_movies/trending_list.dart';
 import 'package:netflix/presentation/home/widgets/background_card_widget.dart';
-import 'package:netflix/presentation/home/widgets/custom_button.dart';
-import 'package:netflix/presentation/home/widgets/number_title_card.dart';
 import 'package:netflix/presentation/widgets/main_title_card.dart';
-import 'package:tmdb_api/tmdb_api.dart';
 
 ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
+// TMDBService get service => GetIt.I<TMDBService>();
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
@@ -19,36 +19,28 @@ class ScreenHome extends StatefulWidget {
 }
 
 class _ScreenHomeState extends State<ScreenHome> {
+  List<PopularList> popularMoviesList = [];
+  List<TrendingList> trendingMoviesList = [];
+  List tvShows = [];
+  List movies = [];
+
   @override
   void initState() {
     // TODO: implement initState
-    loadMovies();
+
+    _getPopular();
+    _getTrending();
     super.initState();
   }
-  List trendingMovies = [];
-  List topRatedMovies = [];
-  List tvShows = [];
 
-  
-
-  loadMovies() async{
-    TMDB tmdbWithCustomLogs = TMDB(ApiKeys(apiKey, readAccessToken),logConfig: ConfigLogger(
-      showLogs: true,
-      showErrorLogs: true
-    ));
-    Map trendingResult = await tmdbWithCustomLogs.v3.trending.getTrending();
-    Map topRatedResult= await tmdbWithCustomLogs.v3.movies.getTopRated();
-    Map tvShowsResults = await tmdbWithCustomLogs.v3.tv.getPopular();
-    
-    setState(() {
-      
-      trendingMovies = trendingResult['results'];
-      topRatedMovies = topRatedResult['results'];
-      tvShows = tvShowsResults['results'];
-    });
-    print(trendingMovies);
+  _getPopular() async {
+    // trendingMoviesList = await TMDBServiceTrending.getTrendingMovies();
+    popularMoviesList = await TMDBServicePopular.getPopularMovies();
   }
 
+  _getTrending() async{
+     trendingMoviesList = await TMDBServiceTrending.getTrendingMovies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,29 +63,27 @@ class _ScreenHomeState extends State<ScreenHome> {
             children: [
               ListView(
                 children: [
-                  
                   const BackgroundCard(),
-                   MainTitleCard(title:  "Trending Movies", trending: trendingMovies),
+                  MainTitleCard(
+                      title: "Trending Movies", movieList: popularMoviesList),
                   kHeight,
-                  // const MainTitleCard(
-                  //   title: "Trending Now",
-                  // ),
-                  // kHeight,
-                  // const NumberTitleCard(),
-                  // kHeight,
-                  // const MainTitleCard(
-                  //   title: "Tense Dramas",
-                  // ),
-                  // kHeight,
-                  // const MainTitleCard(
-                  //   title: "South Indian Cinema",
-                  // ),
+                   MainTitleCard(title: "Top Rated Movies", movieList: trendingMoviesList),
                   kHeight,
+                  //  NumberTitleCard(movieList: tvShows),
+                  // kHeight,
+                  //  MainTitleCard(
+                  //   title: "Movies you watch", movieList: movies,
+                  // ),
+                  // kHeight,
+                  // // const MainTitleCard(
+                  // //   title: "South Indian Cinema",
+                  // // ),
+                  // kHeight,
                 ],
               ),
               scrollNotifier.value == true
                   ? AnimatedContainer(
-                    duration: const Duration(seconds: 3),
+                      duration: const Duration(seconds: 3),
                       width: double.infinity,
                       height: 90,
                       color: Colors.black.withOpacity(0.1),
@@ -128,8 +118,14 @@ class _ScreenHomeState extends State<ScreenHome> {
                                 'Tv Shows',
                                 style: KHomeTitleText,
                               ),
-                              Text("Movies",style: KHomeTitleText,),
-                              Text("Categories",style: KHomeTitleText,)
+                              Text(
+                                "Movies",
+                                style: KHomeTitleText,
+                              ),
+                              Text(
+                                "Categories",
+                                style: KHomeTitleText,
+                              )
                             ],
                           )
                         ],

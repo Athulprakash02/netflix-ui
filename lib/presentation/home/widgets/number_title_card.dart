@@ -4,8 +4,9 @@ import 'package:netflix/presentation/home/widgets/number_card.dart';
 import 'package:netflix/presentation/widgets/main_title.dart';
 
 class NumberTitleCard extends StatelessWidget {
+  final List movieList;
   const NumberTitleCard({
-    super.key,
+    super.key, required this.movieList,
   });
 
   @override
@@ -22,7 +23,7 @@ class NumberTitleCard extends StatelessWidget {
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) =>
-                  NumberCard(index: index),
+                  NumberCard(index: index,posterPath: movieList[index]['poster_path']),
               separatorBuilder: (context, index) => kWidth,
               itemCount: 10),
         ),

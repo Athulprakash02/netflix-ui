@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/presentation/home/screen_home.dart';
 import 'package:netflix/presentation/widgets/main_card.dart';
 import 'package:netflix/presentation/widgets/main_title.dart';
 
 class MainTitleCard extends StatelessWidget {
   final String title;
-  final List trending;
+  final List movieList;
   const MainTitleCard({
-    super.key, required this.title, required this.trending,
+    super.key, required this.title, required this.movieList,
   });
 
   @override
@@ -23,9 +24,9 @@ class MainTitleCard extends StatelessWidget {
           maxHeight: 180,
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) =>  MainCardWidget(posterPath: trending[index]['poster_path']),
+              itemBuilder: (context, index) =>  MainCardWidget(posterPath: movieList[index].posterPath),
               separatorBuilder: (context, index) => kWidth,
-              itemCount: 10),
+              itemCount: movieList.length),
         ),
       ],
     );

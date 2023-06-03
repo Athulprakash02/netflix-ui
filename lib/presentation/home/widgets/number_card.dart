@@ -5,8 +5,9 @@ import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/widgets/sized_box_widget.dart';
 
 class NumberCard extends StatelessWidget {
-  const NumberCard({super.key, required this.index});
+  const NumberCard({super.key, required this.index, this.posterPath});
   final int index;
+  final posterPath;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -19,9 +20,9 @@ class NumberCard extends StatelessWidget {
               height: 180,
               decoration: BoxDecoration(
                   borderRadius: kRadius10,
-                  image: const DecorationImage(
+                  image:  DecorationImage(
                       image: NetworkImage(
-                          'https://www.themoviedb.org/t/p/w220_and_h330_face/7MUQMSncjUSYeNx0ZAgFCxhlPhv.jpg'),
+                          'https://www.themoviedb.org/t/p/w500' + posterPath),
                       fit: BoxFit.cover)),
             ),
           ],
