@@ -60,7 +60,7 @@ class ScreenNewAndHot extends StatelessWidget {
         ),
         body: TabBarView(children: [
           _buildCommingSoon(context),
-          _buildEveryonesWatching("Everyone watching"),
+          _buildEveryonesWatching(),
         ]),
       ),
     );
@@ -72,7 +72,7 @@ class ScreenNewAndHot extends StatelessWidget {
     );
   }
 
-  Widget _buildEveryonesWatching(String s) {
+  Widget _buildEveryonesWatching() {
     return ListView.builder(
       itemBuilder: (context, index) => const EveryonesWatchingWidget(),
       itemCount: 10,

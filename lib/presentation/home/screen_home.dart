@@ -47,19 +47,23 @@ class _ScreenHomeState extends State<ScreenHome> {
   _getPopular() async {
     // trendingMoviesList = await TMDBServiceTrending.getTrendingMovies();
     popularMoviesList = await TMDBServicePopular.getPopularMovies();
+    setState(() {});
   }
 
   _getTrending() async {
     trendingMoviesList = await TMDBServiceTrending.getTrendingMovies();
+    setState(() {});
   }
 
   _getTopRated() async {
     top10TvShows = await TMDBServiceTopRated.getTopRatedMovies();
+    setState(() {});
   }
 
   _getUpcoming() async {
     print('entered');
     upcomingMovies = await TMDBServiceUpcoming.getUpcomingMovies();
+    setState(() {});
   }
 
   _getMainBGMovie() async {

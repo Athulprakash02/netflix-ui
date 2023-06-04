@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/domain/model/downloads/api_call_download.dart';
+import 'package:netflix/domain/model/downloads/dowloads_list.dart';
 // import 'package:netflix/domain/model/downloads/api_response.dart';
 // import 'package:netflix/domain/model/downloads/downloads.dart';
 import 'package:netflix/presentation/widgets/app_bar_widget.dart';
@@ -10,7 +12,7 @@ import 'package:netflix/presentation/widgets/sized_box_widget.dart';
 
 // import '../../domain/model/downloads/demo_list_downloads.dart';
 
-List<dynamic> imageList = [];
+List<DownloadsMovieList> movieList = [];
 
 class ScreenDownloads extends StatefulWidget {
   ScreenDownloads({super.key});
@@ -27,25 +29,20 @@ class _ScreenDownloadsState extends State<ScreenDownloads> {
   
   // TMDBServiceDownloads get service => GetIt.I<TMDBServiceDownloads>();
   
-  final _widgetsList = [
-    const _smartDownloads(),
-    Section2(),
-    const Section3(),
-  ];
-
-  @override
+ @override
   void initState() {
     // TODO: implement initState
-    // _fetchMvies();
-    print(imageList);
-    
+    getMovies();
     super.initState();
   }
 
-  _fetchMvies() async{
-
-    // _apiResponse = await service.getDemo();
+  getMovies() async{
+    movieList = await TMDBServiceDownloads.getDownloadMovies();
+    setState(() {
+      
+    });
   }
+    
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +51,13 @@ class _ScreenDownloadsState extends State<ScreenDownloads> {
         appBar: const PreferredSize(
             child: AppBarWidget(title: 'Downloads'),
             preferredSize: Size.fromHeight(50)),
-        body: ListView.separated(
-            padding: const EdgeInsets.all(15),
-            itemBuilder: (context, index) => _widgetsList[index],
-            separatorBuilder: (context, index) => const SizedBox(
-                  height: 25,
-                ),
-            itemCount: _widgetsList.length));
+        body: ListView(
+          children: [
+            _smartDownloads(),
+            Section2(),
+            Section3(),
+          ],
+        ));
   }
 }
 
@@ -72,34 +69,7 @@ class Section2 extends StatefulWidget {
 }
 
 class _Section2State extends State<Section2> {
-  // TMDBService _tmdbService = TMDBService();
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   _fetchPopularMovies();
-
-  // }
-  // Future<void> _fetchPopularMovies() async{
-  //   try {
-  //     final jsonData = await _tmdbService.getPopularMovies();
-  //     final List<dynamic> movies = jsonData['results'];
-  //     List<String> imagePathList = movies.map<String>((movie) {
-  //       final String posterPath = movie['poster_path'];
-  //       return "https://image.tmdb.org/t/p/w500$posterPath";
-
-  //     }).toList();
-  //     print('object');
-  //     print(imagePathList);
-  //     setState(() {
-  //       imageList = imagePathList;
-  //     });
-  //   } catch (e) {
-  //     print('Error: $e');
-
-  //   }
-  // }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -133,18 +103,18 @@ class _Section2State extends State<Section2> {
                 ),
               ),
               downloadsImageWidget(
-                imageList: imageList[0]["poster_path"],
+                imageList: movieList[0].posterPath!,
                 margin: const EdgeInsets.only(left: 140, bottom: 35),
                 angle: 15,
                 size: Size(size.width * 0.37, size.width * 0.5),
               ),
               downloadsImageWidget(
-                  imageList: imageList[0]["poster_path"],
+                  imageList: movieList[1].posterPath!,
                   margin: const EdgeInsets.only(right: 140, bottom: 35),
                   angle: -15,
                   size: Size(size.width * 0.37, size.width * 0.5)),
               downloadsImageWidget(
-                  imageList: imageList[0]["poster_path"],
+                  imageList: movieList[2].posterPath!,
                   margin: const EdgeInsets.only(left: 0),
                   size: Size(size.width * 0.4, size.width * 0.58)),
             ],
@@ -260,7 +230,7 @@ class downloadsImageWidget extends StatelessWidget {
           color: KBlackColor,
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
-              image: NetworkImage(imageList), fit: BoxFit.cover),
+              image: NetworkImage('https://image.tmdb.org/t/p/w500'+imageList), fit: BoxFit.cover),
         ),
       ),
     );
