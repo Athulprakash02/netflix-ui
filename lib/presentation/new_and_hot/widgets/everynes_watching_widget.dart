@@ -5,6 +5,7 @@ import 'package:netflix/presentation/home/widgets/custom_button.dart';
 import 'package:netflix/presentation/widgets/sized_box_widget.dart';
 import 'package:netflix/presentation/widgets/video_widget.dart';
 
+// ignore: must_be_immutable
 class EveryonesWatchingWidget extends StatelessWidget {
 
    EveryonesWatchingWidget({

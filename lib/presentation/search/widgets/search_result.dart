@@ -5,6 +5,7 @@ import 'package:netflix/presentation/search/widgets/title.dart';
 const imageUrl =
     "https://www.themoviedb.org/t/p/w220_and_h330_face/dP5Fb6YRfzmCQtRbHOr2kO7tJW9.jpg";
 
+// ignore: must_be_immutable
 class SearchResultWidget extends StatefulWidget {
   List results = [];
   SearchResultWidget({
@@ -34,7 +35,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
             children: List.generate(
              widget.results.length,
               (index) {
-                return  MainCard(posterPath: widget.results[index].posterPath);
+                return widget.results[index].posterPath == null ? const Center(child: CircularProgressIndicator()): MainCard(posterPath: widget.results[index].posterPath);
               },
             ),
           ),

@@ -5,15 +5,14 @@ import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/domain/model/downloads/api_call_download.dart';
 import 'package:netflix/domain/model/downloads/dowloads_list.dart';
-// import 'package:netflix/domain/model/downloads/api_response.dart';
-// import 'package:netflix/domain/model/downloads/downloads.dart';
+
 import 'package:netflix/presentation/widgets/app_bar_widget.dart';
 import 'package:netflix/presentation/widgets/sized_box_widget.dart';
 
-// import '../../domain/model/downloads/demo_list_downloads.dart';
+
 
 class ScreenDownloads extends StatefulWidget {
-  ScreenDownloads({super.key});
+  const ScreenDownloads({super.key});
 
   @override
   State<ScreenDownloads> createState() => _ScreenDownloadsState();
@@ -43,7 +42,7 @@ class _ScreenDownloadsState extends State<ScreenDownloads> {
             preferredSize: Size.fromHeight(50),
             child: AppBarWidget(title: 'Downloads')),
         body: movieList.isEmpty
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : ListView(
                 children: [
                   const _smartDownloads(),
@@ -54,6 +53,7 @@ class _ScreenDownloadsState extends State<ScreenDownloads> {
   }
 }
 
+// ignore: must_be_immutable
 class Section2 extends StatelessWidget {
   Section2({
     super.key,

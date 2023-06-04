@@ -20,7 +20,7 @@ class SearchIdleWidget extends StatelessWidget {
          const searchTextTitle(title: "Top Searches"),
         kHeight,
         Expanded(
-          child: ListView.separated(
+          child: results.isEmpty ? const Center(child: CircularProgressIndicator()) : ListView.separated(
               shrinkWrap: true,
               itemBuilder: (ctx, index) =>  TopSearchItemTile(image: results[index].backdropPath,title: results[index].title),
               separatorBuilder: (ctx, index) => szdBox(20, 0),
@@ -55,7 +55,7 @@ class TopSearchItemTile extends StatelessWidget {
          Expanded(
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold, color: KWhiteColor),
           ),
         ),

@@ -3,9 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/home/widgets/custom_button.dart';
-import 'package:netflix/presentation/new_and_hot/screen_new_and_hot.dart';
 import 'package:netflix/presentation/widgets/video_widget.dart';
 
+// ignore: must_be_immutable
 class CommingSoonWidget extends StatelessWidget {
   CommingSoonWidget({
     super.key,
