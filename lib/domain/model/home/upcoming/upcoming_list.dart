@@ -1,26 +1,47 @@
-class TopRatedModel {
+class UpcomingMoviesModel {
+  Dates? dates;
   int? page;
-  List<TopRatedList>? results;
+  List<UpcomingMoviesList>? results;
   int? totalPages;
   int? totalResults;
 
-  TopRatedModel({this.page, this.results, this.totalPages, this.totalResults});
+  UpcomingMoviesModel(
+      {this.dates,
+      this.page,
+      this.results,
+      this.totalPages,
+      this.totalResults});
 
-  TopRatedModel.fromJson(Map<String, dynamic> json) {
+  UpcomingMoviesModel.fromJson(Map<String, dynamic> json) {
+    dates = json['dates'] != null ? new Dates.fromJson(json['dates']) : null;
     page = json['page'];
     if (json['results'] != null) {
-      results = <TopRatedList>[];
+      results = <UpcomingMoviesList>[];
       json['results'].forEach((v) {
-        results!.add(new TopRatedList.fromJson(v));
+        results!.add(new UpcomingMoviesList.fromJson(v));
       });
     }
     totalPages = json['total_pages'];
     totalResults = json['total_results'];
   }
 
+  
 }
 
-class TopRatedList {
+class Dates {
+  String? maximum;
+  String? minimum;
+
+  Dates({this.maximum, this.minimum});
+
+  Dates.fromJson(Map<String, dynamic> json) {
+    maximum = json['maximum'];
+    minimum = json['minimum'];
+  }
+
+}
+
+class UpcomingMoviesList {
   bool? adult;
   String? backdropPath;
   List<int>? genreIds;
@@ -33,10 +54,10 @@ class TopRatedList {
   String? releaseDate;
   String? title;
   bool? video;
-  double? voteAverage;
+  // double? voteAverage;
   int? voteCount;
 
-  TopRatedList(
+  UpcomingMoviesList(
       {this.adult,
       this.backdropPath,
       this.genreIds,
@@ -49,10 +70,10 @@ class TopRatedList {
       this.releaseDate,
       this.title,
       this.video,
-      this.voteAverage,
+      // this.voteAverage,
       this.voteCount});
 
-  TopRatedList.fromJson(Map<String, dynamic> json) {
+  UpcomingMoviesList.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     genreIds = json['genre_ids'].cast<int>();
@@ -65,18 +86,16 @@ class TopRatedList {
     releaseDate = json['release_date'];
     title = json['title'];
     video = json['video'];
-    voteAverage = json['vote_average'];
+    // voteAverage = json['vote_average'];
     voteCount = json['vote_count'];
   }
 
-
-  static List<TopRatedList> TopRatedFromSnapshot(
-      List<dynamic> TopRatedSnapshot) {
-    return TopRatedSnapshot
-        .map((jsonData) => TopRatedList.fromJson(jsonData))
+  static List<UpcomingMoviesList> upcomingFromSnapshot(
+      List<dynamic> upcomingSnapshot) {
+    return upcomingSnapshot
+        .map((jsonData) => UpcomingMoviesList.fromJson(jsonData))
         .toList();
   }
 
-  
   
 }

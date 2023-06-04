@@ -23,7 +23,7 @@ class NumberTitleCard extends StatelessWidget {
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) =>
-                  NumberCard(index: index,posterPath: movieList[index]['poster_path']),
+                  NumberCard(index: index,posterPath: movieList[index].posterPath),
               separatorBuilder: (context, index) => kWidth,
               itemCount: 10),
         ),

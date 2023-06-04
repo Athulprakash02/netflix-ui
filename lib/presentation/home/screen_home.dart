@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/domain/model/home/main_background_movie/api_call_main_bg.dart';
+import 'package:netflix/domain/model/home/main_background_movie/main_bg_movie.dart';
 import 'package:netflix/domain/model/home/popular_movies/api_call_popular.dart';
 import 'package:netflix/domain/model/home/popular_movies/popular_list.dart';
+import 'package:netflix/domain/model/home/top10_tvshows/api_call_top10.dart';
+import 'package:netflix/domain/model/home/top10_tvshows/top_rated_list.dart';
 import 'package:netflix/domain/model/home/trending_movies/api_call_trending.dart';
 import 'package:netflix/domain/model/home/trending_movies/trending_list.dart';
+import 'package:netflix/domain/model/home/upcoming/api_call_upcoming.dart';
+import 'package:netflix/domain/model/home/upcoming/upcoming_list.dart';
 import 'package:netflix/presentation/home/widgets/background_card_widget.dart';
+import 'package:netflix/presentation/home/widgets/number_title_card.dart';
 import 'package:netflix/presentation/widgets/main_title_card.dart';
 
 ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
@@ -21,8 +28,9 @@ class ScreenHome extends StatefulWidget {
 class _ScreenHomeState extends State<ScreenHome> {
   List<PopularList> popularMoviesList = [];
   List<TrendingList> trendingMoviesList = [];
-  List tvShows = [];
-  List movies = [];
+  List<TopRatedList> top10TvShows= [];
+  List<UpcomingMoviesList> upcomingMovies = [];
+  List<MainBackgroundMovie> mainBGMovie = [];
 
   @override
   void initState() {
@@ -30,6 +38,9 @@ class _ScreenHomeState extends State<ScreenHome> {
 
     _getPopular();
     _getTrending();
+    _getTopRated();
+    _getUpcoming();
+    _getMainBGMovie();
     super.initState();
   }
 
@@ -40,6 +51,20 @@ class _ScreenHomeState extends State<ScreenHome> {
 
   _getTrending() async{
      trendingMoviesList = await TMDBServiceTrending.getTrendingMovies();
+  }
+
+  _getTopRated() async {
+   
+    top10TvShows = await TMDBServiceTopRated.getTopRatedMovies();
+  }
+  _getUpcoming() async {
+   print('entered');
+    upcomingMovies = await TMDBServiceUpcoming.getUpcomingMovies();
+  }
+
+  _getMainBGMovie() async {
+   print('entered');
+    mainBGMovie = await TMDBServiceMainBGMovie.getMainBGMovie();
   }
 
   @override
@@ -63,18 +88,18 @@ class _ScreenHomeState extends State<ScreenHome> {
             children: [
               ListView(
                 children: [
-                  const BackgroundCard(),
+                   BackgroundCard(mainImage: mainBGMovie[1].posterPath),
                   MainTitleCard(
-                      title: "Trending Movies", movieList: popularMoviesList),
+                      title: "Popular Movies", movieList: popularMoviesList),
                   kHeight,
-                   MainTitleCard(title: "Top Rated Movies", movieList: trendingMoviesList),
+                   MainTitleCard(title: "Trending Movies", movieList: trendingMoviesList),
                   kHeight,
-                  //  NumberTitleCard(movieList: tvShows),
-                  // kHeight,
-                  //  MainTitleCard(
-                  //   title: "Movies you watch", movieList: movies,
-                  // ),
-                  // kHeight,
+                   NumberTitleCard(movieList: top10TvShows),
+                  kHeight,
+                   MainTitleCard(
+                    title: "Upcoming Movies", movieList: upcomingMovies,
+                  ),
+                  kHeight,
                   // // const MainTitleCard(
                   // //   title: "South Indian Cinema",
                   // // ),
