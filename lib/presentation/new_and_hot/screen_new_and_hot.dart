@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
-import 'package:netflix/presentation/home/widgets/custom_button.dart';
 import 'package:netflix/presentation/new_and_hot/widgets/comming_soon_widget.dart';
 import 'package:netflix/presentation/new_and_hot/widgets/everynes_watching_widget.dart';
-import 'package:netflix/presentation/widgets/app_bar_widget.dart';
-import 'package:netflix/presentation/widgets/sized_box_widget.dart';
-import 'package:netflix/presentation/widgets/video_widget.dart';
 
 const newAndHotTemplateImage =
     "https://www.themoviedb.org/t/p/w355_and_h200_multi_faces/r7zUXadc1saFFSWz8lbUx7q9bkG.jpg";

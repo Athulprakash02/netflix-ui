@@ -28,19 +28,19 @@ class ScreenHome extends StatefulWidget {
 class _ScreenHomeState extends State<ScreenHome> {
   List<PopularList> popularMoviesList = [];
   List<TrendingList> trendingMoviesList = [];
-  List<TopRatedList> top10TvShows= [];
+  List<TopRatedList> top10TvShows = [];
   List<UpcomingMoviesList> upcomingMovies = [];
   List<MainBackgroundMovie> mainBGMovie = [];
 
   @override
   void initState() {
     // TODO: implement initState
-
+    _getMainBGMovie();
     _getPopular();
     _getTrending();
     _getTopRated();
     _getUpcoming();
-    _getMainBGMovie();
+
     super.initState();
   }
 
@@ -49,21 +49,21 @@ class _ScreenHomeState extends State<ScreenHome> {
     popularMoviesList = await TMDBServicePopular.getPopularMovies();
   }
 
-  _getTrending() async{
-     trendingMoviesList = await TMDBServiceTrending.getTrendingMovies();
+  _getTrending() async {
+    trendingMoviesList = await TMDBServiceTrending.getTrendingMovies();
   }
 
   _getTopRated() async {
-   
     top10TvShows = await TMDBServiceTopRated.getTopRatedMovies();
   }
+
   _getUpcoming() async {
-   print('entered');
+    print('entered');
     upcomingMovies = await TMDBServiceUpcoming.getUpcomingMovies();
   }
 
   _getMainBGMovie() async {
-   print('entered');
+    print('entered');
     mainBGMovie = await TMDBServiceMainBGMovie.getMainBGMovie();
   }
 
@@ -88,16 +88,24 @@ class _ScreenHomeState extends State<ScreenHome> {
             children: [
               ListView(
                 children: [
-                   BackgroundCard(mainImage: mainBGMovie[1].posterPath),
+                  BackgroundCard(mainImage: mainBGMovie[0].posterPath),
                   MainTitleCard(
-                      title: "Popular Movies", movieList: popularMoviesList),
+                    title: "Popular Movies",
+                    movieList: popularMoviesList,
+                  ),
                   kHeight,
-                   MainTitleCard(title: "Trending Movies", movieList: trendingMoviesList),
+                  MainTitleCard(
+                    title: "Trending Movies",
+                    movieList: trendingMoviesList,
+                  ),
                   kHeight,
-                   NumberTitleCard(movieList: top10TvShows),
+                  NumberTitleCard(
+                    movieList: top10TvShows,
+                  ),
                   kHeight,
-                   MainTitleCard(
-                    title: "Upcoming Movies", movieList: upcomingMovies,
+                  MainTitleCard(
+                    title: "Upcoming Movies",
+                    movieList: upcomingMovies,
                   ),
                   kHeight,
                   // // const MainTitleCard(

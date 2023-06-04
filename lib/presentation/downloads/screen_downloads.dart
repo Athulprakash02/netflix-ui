@@ -1,17 +1,14 @@
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:http/http.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
-import 'package:netflix/domain/model/downloads/api_response.dart';
-import 'package:netflix/domain/model/downloads/downloads.dart';
+// import 'package:netflix/domain/model/downloads/api_response.dart';
+// import 'package:netflix/domain/model/downloads/downloads.dart';
 import 'package:netflix/presentation/widgets/app_bar_widget.dart';
 import 'package:netflix/presentation/widgets/sized_box_widget.dart';
 
-import '../../domain/model/downloads/demo_list_downloads.dart';
+// import '../../domain/model/downloads/demo_list_downloads.dart';
 
 List<dynamic> imageList = [];
 
@@ -25,10 +22,10 @@ class ScreenDownloads extends StatefulWidget {
 
 
 
-late APIResponse<List<DemoList>> _apiResponse;
+// late APIResponse<List<DemoList>> _apiResponse;
 class _ScreenDownloadsState extends State<ScreenDownloads> {
   
-  TMDBServiceDownloads get service => GetIt.I<TMDBServiceDownloads>();
+  // TMDBServiceDownloads get service => GetIt.I<TMDBServiceDownloads>();
   
   final _widgetsList = [
     const _smartDownloads(),
@@ -39,7 +36,7 @@ class _ScreenDownloadsState extends State<ScreenDownloads> {
   @override
   void initState() {
     // TODO: implement initState
-    _fetchMvies();
+    // _fetchMvies();
     print(imageList);
     
     super.initState();
@@ -47,7 +44,7 @@ class _ScreenDownloadsState extends State<ScreenDownloads> {
 
   _fetchMvies() async{
 
-    _apiResponse = await service.getDemo();
+    // _apiResponse = await service.getDemo();
   }
 
   @override
