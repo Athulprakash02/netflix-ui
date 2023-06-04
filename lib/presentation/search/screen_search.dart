@@ -27,6 +27,7 @@ class _ScreenSearchState extends State<ScreenSearch> {
   void _onSearchTextChanged() {
     setState(() {
       _isSearchIdle = _searchController.text.isEmpty;
+      print(_isSearchIdle);
     });
   }
   @override

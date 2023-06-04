@@ -3,6 +3,8 @@ import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/domain/model/newandhot/coming_soon/api_call.dart';
 import 'package:netflix/domain/model/newandhot/coming_soon/comingsoon.dart';
+import 'package:netflix/domain/model/newandhot/everyonewatching/api_call.dart';
+import 'package:netflix/domain/model/newandhot/everyonewatching/everyone_watching.dart';
 import 'package:netflix/presentation/new_and_hot/widgets/comming_soon_widget.dart';
 import 'package:netflix/presentation/new_and_hot/widgets/everynes_watching_widget.dart';
 
@@ -12,8 +14,6 @@ const movieTitleImage =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv_04UVGA5GxM88FkFV8uN_jl_KoWACKtXR8ZmvoW-hME-uQc0zB-_doLrNlWqx-nuuA&usqp=CAU";
 
 class ScreenNewAndHot extends StatefulWidget {
-
-  
   const ScreenNewAndHot({super.key});
 
   @override
@@ -21,22 +21,30 @@ class ScreenNewAndHot extends StatefulWidget {
 }
 
 class _ScreenNewAndHotState extends State<ScreenNewAndHot> {
-
   List<ComingSoonList> comingSoonMovies = [];
+  List<EveryonesWatching> everyoneWatchingList = [];
 
   @override
   void initState() {
     // TODO: implement initState
-    _fetchMovieData();
+    _fetchComingSoon();
+    _fetchEveryoneWatching();
     super.initState();
   }
 
-  _fetchMovieData() async{
+  _fetchComingSoon() async {
     comingSoonMovies = await TMDBServiceComingSoon.getComingSoon();
+    setState(() {});
+  }
+
+  _fetchEveryoneWatching() async {
+    everyoneWatchingList = await TMDBServiceEveryoneWatching.getEveryonesWatching();
     setState(() {
       
     });
+
   }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -99,7 +107,7 @@ class _ScreenNewAndHotState extends State<ScreenNewAndHot> {
 
   Widget _buildEveryonesWatching() {
     return ListView.builder(
-      itemBuilder: (context, index) => const EveryonesWatchingWidget(),
+      itemBuilder: (context, index) =>  EveryonesWatchingWidget(movies: everyoneWatchingList, index: index),
       itemCount: 10,
     );
   }
@@ -108,7 +116,8 @@ class _ScreenNewAndHotState extends State<ScreenNewAndHot> {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: ListView.builder(
-        itemBuilder: (context, index) =>  CommingSoonWidget(movies: comingSoonMovies, index: index),
+        itemBuilder: (context, index) =>
+            CommingSoonWidget(movies: comingSoonMovies, index: index),
         itemCount: comingSoonMovies.length,
       ),
     );

@@ -7,9 +7,15 @@ import 'package:netflix/presentation/widgets/sized_box_widget.dart';
 import 'package:netflix/presentation/widgets/video_widget.dart';
 
 class EveryonesWatchingWidget extends StatelessWidget {
-  const EveryonesWatchingWidget({
+
+   EveryonesWatchingWidget({
     super.key,
+    required this.movies,
+    required this.index
   });
+
+  List movies;
+  int index;
 
   @override
   Widget build(BuildContext context) {
@@ -19,45 +25,45 @@ class EveryonesWatchingWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           kHeight,
-          const Text(
-            "Friends",
-            style: TextStyle(
+           Text(
+            movies[index].title,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
           kHeight,
-          const SizedBox(
+           SizedBox(
             child: Text(
-              "This hit sitcom follows the merry misadventures of six 20-something pals as they navigate the pitfalls of work, life and love in 1990's Manhattan.",
-              style: TextStyle(color: KGreyColor),
+              movies[index].overview,
+              style: const TextStyle(color: KGreyColor),
             ),
           ),
           szdBox(50, 0),
-          // const VideoWidget(),
+           VideoWidget(posterPath: movies[index].posterPath),
           kHeight,
-          Row(
+          const Row(
             children: [
-              Image.network(
-                movieTitleImage,
-                height: 50,
-              ),
-              const Spacer(),
-              const CustomButtonWidget(
+              // Image.network(
+              //   movieTitleImage,
+              //   height: 50,
+              // ),
+              Spacer(),
+              CustomButtonWidget(
                 icon: Icons.send,
                 title: "Share",
                 iconSize: 20,
                 textSize: 12,
               ),
               kWidth,
-              const CustomButtonWidget(
+              CustomButtonWidget(
                 icon: Icons.add,
                 title: "My List",
                 iconSize: 20,
                 textSize: 12,
               ),
               kWidth,
-              const CustomButtonWidget(
+              CustomButtonWidget(
                 icon: Icons.play_arrow,
                 title: "Play",
                 iconSize: 20,
