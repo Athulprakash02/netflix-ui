@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/core/colors/colors.dart';
-import 'package:netflix/presentation/new_and_hot/screen_new_and_hot.dart';
+// import 'package:netflix/presentation/new_and_hot/screen_new_and_hot.dart';
 
 class VideoWidget extends StatelessWidget {
   const VideoWidget({
-    super.key,
+    super.key, required this.posterPath,
   });
+  final String posterPath;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class VideoWidget extends StatelessWidget {
           width: double.infinity,
           height: 200,
           child: Image.network(
-            newAndHotTemplateImage,
+           'https://image.tmdb.org/t/p/w500'+ posterPath,
             fit: BoxFit.cover,
           ),
         ),

@@ -34,7 +34,7 @@ class EveryonesWatchingWidget extends StatelessWidget {
             ),
           ),
           szdBox(50, 0),
-          const VideoWidget(),
+          // const VideoWidget(),
           kHeight,
           Row(
             children: [

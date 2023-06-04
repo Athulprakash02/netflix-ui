@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/domain/model/newandhot/coming_soon/api_call.dart';
+import 'package:netflix/domain/model/newandhot/coming_soon/comingsoon.dart';
 import 'package:netflix/presentation/new_and_hot/widgets/comming_soon_widget.dart';
 import 'package:netflix/presentation/new_and_hot/widgets/everynes_watching_widget.dart';
 
@@ -9,9 +11,32 @@ const newAndHotTemplateImage =
 const movieTitleImage =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv_04UVGA5GxM88FkFV8uN_jl_KoWACKtXR8ZmvoW-hME-uQc0zB-_doLrNlWqx-nuuA&usqp=CAU";
 
-class ScreenNewAndHot extends StatelessWidget {
+class ScreenNewAndHot extends StatefulWidget {
+
+  
   const ScreenNewAndHot({super.key});
 
+  @override
+  State<ScreenNewAndHot> createState() => _ScreenNewAndHotState();
+}
+
+class _ScreenNewAndHotState extends State<ScreenNewAndHot> {
+
+  List<ComingSoonList> comingSoonMovies = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _fetchMovieData();
+    super.initState();
+  }
+
+  _fetchMovieData() async{
+    comingSoonMovies = await TMDBServiceComingSoon.getComingSoon();
+    setState(() {
+      
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -83,8 +108,8 @@ class ScreenNewAndHot extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: ListView.builder(
-        itemBuilder: (context, index) => const CommingSoonWidget(),
-        itemCount: 10,
+        itemBuilder: (context, index) =>  CommingSoonWidget(movies: comingSoonMovies, index: index),
+        itemCount: comingSoonMovies.length,
       ),
     );
   }
