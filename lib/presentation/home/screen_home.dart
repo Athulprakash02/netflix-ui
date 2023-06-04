@@ -90,34 +90,36 @@ class _ScreenHomeState extends State<ScreenHome> {
           },
           child: Stack(
             children: [
-              ListView(
-                children: [
-                  BackgroundCard(mainImage: mainBGMovie[0].posterPath),
-                  MainTitleCard(
-                    title: "Popular Movies",
-                    movieList: popularMoviesList,
-                  ),
-                  kHeight,
-                  MainTitleCard(
-                    title: "Trending Movies",
-                    movieList: trendingMoviesList,
-                  ),
-                  kHeight,
-                  NumberTitleCard(
-                    movieList: top10TvShows,
-                  ),
-                  kHeight,
-                  MainTitleCard(
-                    title: "Upcoming Movies",
-                    movieList: upcomingMovies,
-                  ),
-                  kHeight,
-                  // // const MainTitleCard(
-                  // //   title: "South Indian Cinema",
-                  // // ),
-                  // kHeight,
-                ],
-              ),
+              mainBGMovie.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView(
+                      children: [
+                        BackgroundCard(mainImage: mainBGMovie[0].posterPath),
+                        MainTitleCard(
+                          title: "Popular Movies",
+                          movieList: popularMoviesList,
+                        ),
+                        kHeight,
+                        MainTitleCard(
+                          title: "Trending Movies",
+                          movieList: trendingMoviesList,
+                        ),
+                        kHeight,
+                        NumberTitleCard(
+                          movieList: top10TvShows,
+                        ),
+                        kHeight,
+                        MainTitleCard(
+                          title: "Upcoming Movies",
+                          movieList: upcomingMovies,
+                        ),
+                        kHeight,
+                        // // const MainTitleCard(
+                        // //   title: "South Indian Cinema",
+                        // // ),
+                        // kHeight,
+                      ],
+                    ),
               scrollNotifier.value == true
                   ? AnimatedContainer(
                       duration: const Duration(seconds: 3),

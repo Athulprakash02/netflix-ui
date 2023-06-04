@@ -12,8 +12,6 @@ import 'package:netflix/presentation/widgets/sized_box_widget.dart';
 
 // import '../../domain/model/downloads/demo_list_downloads.dart';
 
-List<DownloadsMovieList> movieList = [];
-
 class ScreenDownloads extends StatefulWidget {
   ScreenDownloads({super.key});
 
@@ -21,56 +19,47 @@ class ScreenDownloads extends StatefulWidget {
   State<ScreenDownloads> createState() => _ScreenDownloadsState();
 }
 
-
-
-
 // late APIResponse<List<DemoList>> _apiResponse;
 class _ScreenDownloadsState extends State<ScreenDownloads> {
-  
   // TMDBServiceDownloads get service => GetIt.I<TMDBServiceDownloads>();
-  
- @override
+  List<DownloadsMovieList> movieList = [];
+  @override
   void initState() {
     // TODO: implement initState
     getMovies();
     super.initState();
   }
 
-  getMovies() async{
+  getMovies() async {
     movieList = await TMDBServiceDownloads.getDownloadMovies();
-    setState(() {
-      
-    });
+    setState(() {});
   }
-    
 
   @override
   Widget build(BuildContext context) {
     // final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: const PreferredSize(
-            child: AppBarWidget(title: 'Downloads'),
-            preferredSize: Size.fromHeight(50)),
-        body: ListView(
-          children: [
-            _smartDownloads(),
-            Section2(),
-            Section3(),
-          ],
-        ));
+            preferredSize: Size.fromHeight(50),
+            child: AppBarWidget(title: 'Downloads')),
+        body: movieList.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : ListView(
+                children: [
+                  const _smartDownloads(),
+                  Section2(movies: movieList),
+                  const Section3(),
+                ],
+              ));
   }
 }
 
-class Section2 extends StatefulWidget {
-  Section2({super.key});
-
-  @override
-  State<Section2> createState() => _Section2State();
-}
-
-class _Section2State extends State<Section2> {
- 
-
+class Section2 extends StatelessWidget {
+  Section2({
+    super.key,
+    required this.movies,
+  });
+  List movies;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -103,18 +92,18 @@ class _Section2State extends State<Section2> {
                 ),
               ),
               downloadsImageWidget(
-                imageList: movieList[0].posterPath!,
+                imageList: movies[0].posterPath!,
                 margin: const EdgeInsets.only(left: 140, bottom: 35),
                 angle: 15,
                 size: Size(size.width * 0.37, size.width * 0.5),
               ),
               downloadsImageWidget(
-                  imageList: movieList[1].posterPath!,
+                  imageList: movies[1].posterPath!,
                   margin: const EdgeInsets.only(right: 140, bottom: 35),
                   angle: -15,
                   size: Size(size.width * 0.37, size.width * 0.5)),
               downloadsImageWidget(
-                  imageList: movieList[2].posterPath!,
+                  imageList: movies[2].posterPath!,
                   margin: const EdgeInsets.only(left: 0),
                   size: Size(size.width * 0.4, size.width * 0.58)),
             ],
@@ -230,7 +219,9 @@ class downloadsImageWidget extends StatelessWidget {
           color: KBlackColor,
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
-              image: NetworkImage('https://image.tmdb.org/t/p/w500'+imageList), fit: BoxFit.cover),
+              image:
+                  NetworkImage('https://image.tmdb.org/t/p/w500' + imageList),
+              fit: BoxFit.cover),
         ),
       ),
     );

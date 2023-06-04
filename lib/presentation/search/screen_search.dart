@@ -23,14 +23,7 @@ class _ScreenSearchState extends State<ScreenSearch> {
   }
 
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _searchController.removeListener(_onSearchTextChanged);
-    _searchController.dispose();
-    super.dispose();
-  }
-
+  
   void _onSearchTextChanged() {
     setState(() {
       _isSearchIdle = _searchController.text.isEmpty;
@@ -52,20 +45,11 @@ class _ScreenSearchState extends State<ScreenSearch> {
                 CupertinoIcons.search,
                 color: Colors.grey,
               ),
-                // suffixIcon: _isSearchIdle
-                //     ?  Icon(
-                //         Icons.clear,
-                //         color: Colors.grey,
-                //       )
-                //     : GestureDetector(
-                //         onTap: () {
-                //           _searchController.clear();
-                //         },
-                //         child: const Icon(
-                //          Icons.clear,
-                //           color: Colors.grey,
-                //         ),
-                //       ),
+                suffixIcon:   Icon(
+                        Icons.clear,
+                        color: Colors.grey,
+                      ),
+                   
                 style: const TextStyle(color: Colors.white),
               ),
             szdBox(10, 0),
