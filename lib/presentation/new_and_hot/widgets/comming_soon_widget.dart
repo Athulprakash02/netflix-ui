@@ -49,7 +49,7 @@ class CommingSoonWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              VideoWidget(posterPath: movies[index].posterPath!),
+              VideoWidget(posterPath: movies[index].backdropPath),
               kHeight,
               Row(
                 children: [

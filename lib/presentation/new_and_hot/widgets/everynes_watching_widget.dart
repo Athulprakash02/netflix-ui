@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/home/widgets/custom_button.dart';
-import 'package:netflix/presentation/new_and_hot/screen_new_and_hot.dart';
 import 'package:netflix/presentation/widgets/sized_box_widget.dart';
 import 'package:netflix/presentation/widgets/video_widget.dart';
 
@@ -40,7 +39,7 @@ class EveryonesWatchingWidget extends StatelessWidget {
             ),
           ),
           szdBox(50, 0),
-           VideoWidget(posterPath: movies[index].posterPath),
+           VideoWidget(posterPath: movies[index].backdropPath),
           kHeight,
           const Row(
             children: [

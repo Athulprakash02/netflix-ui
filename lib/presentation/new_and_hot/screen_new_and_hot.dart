@@ -108,7 +108,7 @@ class _ScreenNewAndHotState extends State<ScreenNewAndHot> {
   Widget _buildEveryonesWatching() {
     return ListView.builder(
       itemBuilder: (context, index) =>  EveryonesWatchingWidget(movies: everyoneWatchingList, index: index),
-      itemCount: 10,
+      itemCount: everyoneWatchingList.length,
     );
   }
 
@@ -116,6 +116,7 @@ class _ScreenNewAndHotState extends State<ScreenNewAndHot> {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) =>
             CommingSoonWidget(movies: comingSoonMovies, index: index),
         itemCount: comingSoonMovies.length,

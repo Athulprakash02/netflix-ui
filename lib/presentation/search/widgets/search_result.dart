@@ -5,9 +5,18 @@ import 'package:netflix/presentation/search/widgets/title.dart';
 const imageUrl =
     "https://www.themoviedb.org/t/p/w220_and_h330_face/dP5Fb6YRfzmCQtRbHOr2kO7tJW9.jpg";
 
-class SearchResultWidget extends StatelessWidget {
-  const SearchResultWidget({super.key});
+class SearchResultWidget extends StatefulWidget {
+  List results = [];
+  SearchResultWidget({
+    super.key,
+    required this.results,
+  });
 
+  @override
+  State<SearchResultWidget> createState() => _SearchResultWidgetState();
+}
+
+class _SearchResultWidgetState extends State<SearchResultWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,11 +30,11 @@ class SearchResultWidget extends StatelessWidget {
             crossAxisSpacing: 10,
             shrinkWrap: true,
             crossAxisCount: 3,
-            childAspectRatio: 1/1.4,
+            childAspectRatio: 1 / 1.4,
             children: List.generate(
-              21,
+             widget.results.length,
               (index) {
-                return const MainCard();
+                return  MainCard(posterPath: widget.results[index].posterPath);
               },
             ),
           ),
@@ -36,7 +45,11 @@ class SearchResultWidget extends StatelessWidget {
 }
 
 class MainCard extends StatelessWidget {
-  const MainCard({super.key});
+  final posterPath;
+  const MainCard({
+    super.key,
+    required this.posterPath,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +58,7 @@ class MainCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(7),
         image: DecorationImage(
           image: NetworkImage(
-            imageUrl,
+            'https://www.themoviedb.org/t/p/w500' + posterPath,
           ),
           fit: BoxFit.cover,
         ),

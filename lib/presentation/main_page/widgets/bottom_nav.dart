@@ -35,11 +35,7 @@ class BottomNavigationWidget extends StatelessWidget {
                   Icons.video_collection_outlined,
                 ),
                 label: 'New & Hot'),
-                 BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.emoji_emotions_rounded,
-                ),
-                label: 'Fast Laugh'),
+                
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.search,
