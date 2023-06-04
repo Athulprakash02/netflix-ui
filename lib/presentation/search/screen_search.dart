@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix/domain/model/search/defaultscreen/api_call_search.dart';
-import 'package:netflix/domain/model/search/defaultscreen/search_results.dart';
+import 'package:netflix/domain/model/search/default_search/api_call_default_search.dart';
+import 'package:netflix/domain/model/search/default_search/default_search.dart';
+import 'package:netflix/domain/model/search/searched_screen/api_call_search.dart';
+import 'package:netflix/domain/model/search/searched_screen/search_results.dart';
 import 'package:netflix/presentation/search/widgets/search_idle.dart';
 import 'package:netflix/presentation/search/widgets/search_result.dart';
 import 'package:netflix/presentation/widgets/sized_box_widget.dart';
@@ -14,6 +16,7 @@ class ScreenSearch extends StatefulWidget {
 }
 
 class _ScreenSearchState extends State<ScreenSearch> {
+  List<TopSearchedList> topSearches = [];
   List<SearchModelList> searchResults = [];
   TextEditingController _searchController = TextEditingController();
   bool _isSearchIdle = true;
@@ -22,8 +25,16 @@ class _ScreenSearchState extends State<ScreenSearch> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _getTopSearch();
     _getSearchResults();
     _searchController.addListener(_onSearchTextChanged);
+  }
+
+  _getTopSearch() async{
+    topSearches = await TMDBServiceTopSearch.getTopSearch();
+    setState(() {
+      
+    });
   }
 
   _getSearchResults() async {
@@ -66,7 +77,7 @@ class _ScreenSearchState extends State<ScreenSearch> {
 
             Expanded(
                 child: _isSearchIdle
-                    ? const SearchIdleWidget()
+                    ?  SearchIdleWidget(results: topSearches)
                     : SearchResultWidget(results: searchResults)),
             // const Expanded(child: SearchResultWidget()),
           ],

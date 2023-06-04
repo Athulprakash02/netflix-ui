@@ -9,7 +9,8 @@ const imageUrl =
     'https://www.themoviedb.org/t/p/w355_and_h200_multi_faces/m8JTwHFwX7I7JY5fPe4SjqejWag.jpg';
 
 class SearchIdleWidget extends StatelessWidget {
-  const SearchIdleWidget({super.key});
+ final List results;
+  const SearchIdleWidget({super.key, required this.results});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +22,9 @@ class SearchIdleWidget extends StatelessWidget {
         Expanded(
           child: ListView.separated(
               shrinkWrap: true,
-              itemBuilder: (ctx, index) => const TopSearchItemTile(),
+              itemBuilder: (ctx, index) =>  TopSearchItemTile(image: results[index].backdropPath,title: results[index].title),
               separatorBuilder: (ctx, index) => szdBox(20, 0),
-              itemCount: 10),
+              itemCount: 9),
         )
       ],
     );
@@ -33,7 +34,9 @@ class SearchIdleWidget extends StatelessWidget {
 
 
 class TopSearchItemTile extends StatelessWidget {
-  const TopSearchItemTile({super.key});
+  final String image;
+  final String title;
+  const TopSearchItemTile({super.key, required this.image, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +46,15 @@ class TopSearchItemTile extends StatelessWidget {
         Container(
           width: screenWidth * 0.35,
           height: 70,
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage(imageUrl), fit: BoxFit.cover),
+                image: NetworkImage('https://www.themoviedb.org/t/p/w500'+image), fit: BoxFit.cover),
           ),
         ),
         szdBox(0, 10),
-        const Expanded(
+         Expanded(
           child: Text(
-            'Movie Name',
+            title,
             style: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold, color: KWhiteColor),
           ),

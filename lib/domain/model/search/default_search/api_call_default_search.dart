@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
-import 'package:netflix/domain/model/search/defaultscreen/search_results.dart';
+import 'package:netflix/domain/model/search/default_search/default_search.dart';
 import 'package:netflix/infrastructure/api_key.dart';
 
-class TMDBServiceSearch{
-  static Future<List<SearchModelList>> getSearchResults(String searchQuerry) async{
-    final url = 'https://api.themoviedb.org/3/search/movie?query=$searchQuerry&api_key=$apiKey';
+class TMDBServiceTopSearch{
+  static Future<List<TopSearchedList>> getTopSearch() async{
+    const url = 'https://api.themoviedb.org/3/trending/all/day?api_key=$apiKey';
 
     final response = await http.get(Uri.parse(url));
     List resultsList = [];
@@ -20,6 +19,6 @@ class TMDBServiceSearch{
         resultsList.add(item);
       }
     }
-    return SearchModelList.searchResultsFromSnapshot(resultsList);
+    return TopSearchedList.topSearchFromSnapshot(resultsList);
   }
 }
