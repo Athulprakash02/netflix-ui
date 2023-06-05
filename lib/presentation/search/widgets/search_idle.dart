@@ -22,9 +22,9 @@ class SearchIdleWidget extends StatelessWidget {
         Expanded(
           child: results.isEmpty ? const Center(child: CircularProgressIndicator()) : ListView.separated(
               shrinkWrap: true,
-              itemBuilder: (ctx, index) =>  TopSearchItemTile(image: results[index].backdropPath,title: results[index].title),
+              itemBuilder: (ctx, index) => results[index].title == null ? Center(child: CircularProgressIndicator()) : TopSearchItemTile(image: results[index].backdropPath,title: results[index].title),
               separatorBuilder: (ctx, index) => szdBox(20, 0),
-              itemCount: 9),
+              itemCount: results.length)
         )
       ],
     );
